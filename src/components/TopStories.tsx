@@ -5,8 +5,6 @@ async function getData() {
   const res = await fetch(
     "https://hacker-news.firebaseio.com/v0/topstories.json"
   );
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
@@ -19,7 +17,6 @@ async function getData() {
 }
 
 async function grabTen(stories: number[]) {
-  // console.log("start", stories);
   // @ts-ignore
   const tenStories = [];
   try {
@@ -176,119 +173,55 @@ async function grabTen(stories: number[]) {
         storyWithUser10
       );
 
-      console.log(
-        "______________________HERE______________________",
-        tenStories
+      tenStories.sort((a, b) =>
+        a.score > b.score ? 1 : b.score > a.score ? -1 : 0
       );
     } catch (err) {
-      throw new Error("Something went wrong with fetching your data: " + err);
+      throw new Error("Something went wrong with fetching the users: " + err);
     }
     return tenStories;
   } catch (err) {
-    throw new Error("One of the requests failed: " + err);
+    throw new Error("Something went wrong with fetching the stories: " + err);
   }
-
-  return tenStories;
-
-  // const res = await fetch(
-  //   `https://hacker-news.firebaseio.com/v0/item/${story}.json`
-  //   );
-
-  //   if (!res.ok) {
-  //     throw new Error("Failed to get one story");
-  //   }
-
-  //   const data = res.json();
-  //   return data;
 }
 
 export default async function TopStories() {
-  // const data = await getData();
-  // const randomNum = (stories: number[]) => {
-  //   return Math.floor(Math.random() * stories.length);
-  // };
+  const data = await getData();
+  const randomNum = (stories: number[]) => {
+    return Math.floor(Math.random() * stories.length);
+  };
 
-  // const getTenRandomStories = (stories: number[]) => {
-  //   const tenStories = [];
-  //   for (let i = 0; i < 10; i++) {
-  //     // prone to repeating stories
-  //     tenStories.push(stories[randomNum(stories)]);
-  //   }
-  //   return tenStories;
-  // };
-  // const tenRandomStories = getTenRandomStories(data);
-  // const currentTenStories = await grabTen(tenRandomStories);
+  const getTenRandomStories = (stories: number[]) => {
+    const tenStories = [];
+    for (let i = 0; i < 10; i++) {
+      // prone to repeating stories
+      tenStories.push(stories[randomNum(stories)]);
+    }
+    return tenStories;
+  };
+  const tenRandomStories = getTenRandomStories(data); // picks the ID's of the 10 stories
+  const currentTenStories = await grabTen(tenRandomStories); // pulls the data with the IDs
 
   return (
     <section className={styles.section}>
-      {/* {currentTenStories.map((story) => (
-        <Story
-          by={story.by}
-          img={story.img}
-          karma={story.karma}
-          score={story.score}
-          timestamp={story.time}
-          title={story.title}
-          url={story.url}
-          key={story.title}
-        />
-      ))} */}
-      <Story
-        by={"Sanjaymehta"}
-        img={
-          "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
-        }
-        karma={123123}
-        score={12233}
-        timestamp={"1692544128"}
-        title={"What SaaS CTOs Need to Know About the Terraform Licence Change"}
-        url={
-          "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
-        }
-        key={"What SaaS CTOs Need to Know About the Terraform Licence Change"}
-      />
-      <Story
-        by={"Sanjaymehta"}
-        img={
-          "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
-        }
-        karma={123123}
-        score={12233}
-        timestamp={"1692544128"}
-        title={"What SaaS CTOs Need to Know About the Terraform Licence Change"}
-        url={
-          "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
-        }
-        key={"What SaaS CTOs Need to Know About the Terraform Licence Change"}
-      />
-      <Story
-        by={"Sanjaymehta"}
-        img={
-          "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
-        }
-        karma={123123}
-        score={12233}
-        timestamp={"1692544128"}
-        title={"What SaaS CTOs Need to Know About the Terraform Licence Change"}
-        url={
-          "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
-        }
-        key={"What SaaS CTOs Need to Know About the Terraform Licence Change"}
-      />
-      <Story
-        by={"Sanjaymehta"}
-        img={
-          "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
-        }
-        karma={123123}
-        score={12233}
-        timestamp={"1692544128"}
-        title={"What SaaS CTOs Need to Know About the Terraform Licence Change"}
-        url={
-          "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
-        }
-        key={"What SaaS CTOs Need to Know About the Terraform Licence Change"}
-      />
+      {currentTenStories.map((story) => {
+        const date = new Date(Number(story.time));
+        const formattedDate = `${date.getDate()}/${
+          date.getMonth() + 1
+        }/${date.getFullYear()}`;
+        return (
+          <Story
+            by={story.by}
+            img={story.img}
+            karma={story.karma}
+            score={story.score}
+            timestamp={formattedDate}
+            title={story.title}
+            url={story.url}
+            key={story.title}
+          />
+        );
+      })}
     </section>
   );
 }
