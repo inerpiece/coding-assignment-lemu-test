@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  background-color: #AAFFAA;
+  padding: 4px;
+    border-radius: 5px;
+
+  .karma, .author {
+    font-size: 1rem;
+  }
+  .karma {
+    opacity: 0.5;
+  }
+}
+
+/* Tiny Mobile */
+@media (max-width: 350px) {
+  .container {
+    flex-direction: column;
+  }
+}
