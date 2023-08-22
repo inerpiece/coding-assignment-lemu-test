@@ -8,7 +8,6 @@ type Story = {
   timestamp: string;
   karma: number;
   url: string;
-  img: string;
   score: number;
 };
 
@@ -18,7 +17,6 @@ export default function Story({
   timestamp,
   karma,
   url,
-  img,
   score,
 }: Story) {
   return (

@@ -19,6 +19,9 @@ async function getData() {
 async function grabTen(stories: number[]) {
   // @ts-ignore
   const tenStories = [];
+
+  //couldn't find a less redundant way of fetching 10 unique URLs from the API
+  //only 1 at a time is supported
   try {
     let [
       story1,
@@ -173,9 +176,9 @@ async function grabTen(stories: number[]) {
         storyWithUser10
       );
 
-      tenStories.sort((a, b) =>
-        a.score > b.score ? 1 : b.score > a.score ? -1 : 0
-      );
+      // sorts the array by score in ascending order
+      // b.score - a.score for descending
+      tenStories.sort((a, b) => a.score - b.score);
     } catch (err) {
       throw new Error("Something went wrong with fetching the users: " + err);
     }
@@ -212,7 +215,6 @@ export default async function TopStories() {
         return (
           <Story
             by={story.by}
-            img={story.img}
             karma={story.karma}
             score={story.score}
             timestamp={formattedDate}
