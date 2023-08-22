@@ -50,36 +50,36 @@ export async function getServerSideProps(stories: number[]) {
       story9,
       story10,
     ] = await Promise.all([
-      fetch(
-        `https://hacker-news.firebaseio.com/v0/item/${stories[0]}.json`
-      ).then((data) => data.json()),
-      fetch(
-        `https://hacker-news.firebaseio.com/v0/item/${stories[1]}.json`
-      ).then((data) => data.json()),
-      fetch(
-        `https://hacker-news.firebaseio.com/v0/item/${stories[2]}.json`
-      ).then((data) => data.json()),
-      fetch(
-        `https://hacker-news.firebaseio.com/v0/item/${stories[3]}.json`
-      ).then((data) => data.json()),
-      fetch(
-        `https://hacker-news.firebaseio.com/v0/item/${stories[4]}.json`
-      ).then((data) => data.json()),
-      fetch(
-        `https://hacker-news.firebaseio.com/v0/item/${stories[5]}.json`
-      ).then((data) => data.json()),
-      fetch(
-        `https://hacker-news.firebaseio.com/v0/item/${stories[6]}.json`
-      ).then((data) => data.json()),
-      fetch(
-        `https://hacker-news.firebaseio.com/v0/item/${stories[7]}.json`
-      ).then((data) => data.json()),
-      fetch(
-        `https://hacker-news.firebaseio.com/v0/item/${stories[8]}.json`
-      ).then((data) => data.json()),
-      fetch(
-        `https://hacker-news.firebaseio.com/v0/item/${stories[9]}.json`
-      ).then((data) => data.json()),
+      fetch(`https://hacker-news.firebaseio.com/v0/item/${stories[0]}.json`, {
+        cache: "no-store",
+      }).then((data) => data.json()),
+      fetch(`https://hacker-news.firebaseio.com/v0/item/${stories[1]}.json`, {
+        cache: "no-store",
+      }).then((data) => data.json()),
+      fetch(`https://hacker-news.firebaseio.com/v0/item/${stories[2]}.json`, {
+        cache: "no-store",
+      }).then((data) => data.json()),
+      fetch(`https://hacker-news.firebaseio.com/v0/item/${stories[3]}.json`, {
+        cache: "no-store",
+      }).then((data) => data.json()),
+      fetch(`https://hacker-news.firebaseio.com/v0/item/${stories[4]}.json`, {
+        cache: "no-store",
+      }).then((data) => data.json()),
+      fetch(`https://hacker-news.firebaseio.com/v0/item/${stories[5]}.json`, {
+        cache: "no-store",
+      }).then((data) => data.json()),
+      fetch(`https://hacker-news.firebaseio.com/v0/item/${stories[6]}.json`, {
+        cache: "no-store",
+      }).then((data) => data.json()),
+      fetch(`https://hacker-news.firebaseio.com/v0/item/${stories[7]}.json`, {
+        cache: "no-store",
+      }).then((data) => data.json()),
+      fetch(`https://hacker-news.firebaseio.com/v0/item/${stories[8]}.json`, {
+        cache: "no-store",
+      }).then((data) => data.json()),
+      fetch(`https://hacker-news.firebaseio.com/v0/item/${stories[9]}.json`, {
+        cache: "no-store",
+      }).then((data) => data.json()),
     ]);
 
     try {
@@ -105,36 +105,36 @@ export async function getServerSideProps(stories: number[]) {
         user9,
         user10,
       ] = await Promise.all([
-        fetch(
-          `https://hacker-news.firebaseio.com/v0/user/${story1.by}.json`
-        ).then((data) => data.json()),
-        fetch(
-          `https://hacker-news.firebaseio.com/v0/user/${story2.by}.json`
-        ).then((data) => data.json()),
-        fetch(
-          `https://hacker-news.firebaseio.com/v0/user/${story3.by}.json`
-        ).then((data) => data.json()),
-        fetch(
-          `https://hacker-news.firebaseio.com/v0/user/${story4.by}.json`
-        ).then((data) => data.json()),
-        fetch(
-          `https://hacker-news.firebaseio.com/v0/user/${story5.by}.json`
-        ).then((data) => data.json()),
-        fetch(
-          `https://hacker-news.firebaseio.com/v0/user/${story6.by}.json`
-        ).then((data) => data.json()),
-        fetch(
-          `https://hacker-news.firebaseio.com/v0/user/${story7.by}.json`
-        ).then((data) => data.json()),
-        fetch(
-          `https://hacker-news.firebaseio.com/v0/user/${story8.by}.json`
-        ).then((data) => data.json()),
-        fetch(
-          `https://hacker-news.firebaseio.com/v0/user/${story9.by}.json`
-        ).then((data) => data.json()),
-        fetch(
-          `https://hacker-news.firebaseio.com/v0/user/${story10.by}.json`
-        ).then((data) => data.json()),
+        fetch(`https://hacker-news.firebaseio.com/v0/user/${story1.by}.json`, {
+          cache: "no-store",
+        }).then((data) => data.json()),
+        fetch(`https://hacker-news.firebaseio.com/v0/user/${story2.by}.json`, {
+          cache: "no-store",
+        }).then((data) => data.json()),
+        fetch(`https://hacker-news.firebaseio.com/v0/user/${story3.by}.json`, {
+          cache: "no-store",
+        }).then((data) => data.json()),
+        fetch(`https://hacker-news.firebaseio.com/v0/user/${story4.by}.json`, {
+          cache: "no-store",
+        }).then((data) => data.json()),
+        fetch(`https://hacker-news.firebaseio.com/v0/user/${story5.by}.json`, {
+          cache: "no-store",
+        }).then((data) => data.json()),
+        fetch(`https://hacker-news.firebaseio.com/v0/user/${story6.by}.json`, {
+          cache: "no-store",
+        }).then((data) => data.json()),
+        fetch(`https://hacker-news.firebaseio.com/v0/user/${story7.by}.json`, {
+          cache: "no-store",
+        }).then((data) => data.json()),
+        fetch(`https://hacker-news.firebaseio.com/v0/user/${story8.by}.json`, {
+          cache: "no-store",
+        }).then((data) => data.json()),
+        fetch(`https://hacker-news.firebaseio.com/v0/user/${story9.by}.json`, {
+          cache: "no-store",
+        }).then((data) => data.json()),
+        fetch(`https://hacker-news.firebaseio.com/v0/user/${story10.by}.json`, {
+          cache: "no-store",
+        }).then((data) => data.json()),
       ]);
 
       /*
