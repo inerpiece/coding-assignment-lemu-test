@@ -16,6 +16,11 @@ async function getData() {
   return data;
 }
 
+/*
+The below function grabTen() takes an array of numbers (in other words stories's IDs)
+and performs a fetch for each story. This could be simplified if the API supports [from, to]
+props for fetching multiple stories at once.
+*/
 async function grabTen(stories: number[]) {
   // @ts-ignore
   const tenStories = [];
@@ -68,6 +73,16 @@ async function grabTen(stories: number[]) {
     ]);
 
     try {
+      /*
+      The below functionality ensures that we pull only the users for the 10 stories we need.
+      This could be further improved by checking each of the 10 stories's authors and if there
+      are duplicates remove them and keep track only of the unique authors.
+
+      This approach will require to check each of the user's [submitted] property and assign it
+      to that specific story.
+
+      TL:DR; Fetching data can be improved
+      */
       let [
         user1,
         user2,
@@ -111,6 +126,13 @@ async function grabTen(stories: number[]) {
           `https://hacker-news.firebaseio.com/v0/user/${story10.by}.json`
         ).then((data) => data.json()),
       ]);
+
+      /*
+      The below code is responsible for merging the story properties with the [username] and 
+      [karma] of its creator. The [username] can be used together with [story.by] to ensure 
+      that the proper user has been assigned to the story object. This merge allows for a single 
+      object to be carried over props etc.
+      */
 
       const storyWithUser1 = {
         ...story1,
@@ -189,11 +211,12 @@ async function grabTen(stories: number[]) {
 }
 
 export default async function TopStories() {
-  const data = await getData();
+  //randomNum picks a random number between 0 and the length of the provided array
   const randomNum = (stories: number[]) => {
     return Math.floor(Math.random() * stories.length);
   };
 
+  //getTenRandomStories populates an array and returns it with the IDs of random stories
   const getTenRandomStories = (stories: number[]) => {
     const tenStories = [];
     for (let i = 0; i < 10; i++) {
@@ -202,11 +225,17 @@ export default async function TopStories() {
     }
     return tenStories;
   };
+  //How it works:
+  //1) pull IDs of topStories
+  const data = await getData();
+  //2) choose 10 random stories
   const tenRandomStories = getTenRandomStories(data); // picks the ID's of the 10 stories
+  //3) pull the content of each of the 10 stories
   const currentTenStories = await grabTen(tenRandomStories); // pulls the data with the IDs
-
+  //4) Hydrate the page with necessary Components and Elements
   return (
     <section className={styles.section}>
+      {/* The below functionality is to ensure that the user has a readable timestamp */}
       {currentTenStories.map((story) => {
         const date = new Date(Number(story.time));
         const formattedDate = `${date.getDate()}/${
