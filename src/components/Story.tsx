@@ -24,7 +24,7 @@ export default function Story({
       <div className={styles.imgContainer}>
         <Image
           alt="static image"
-          src={"/placeholder-image.png"}
+          src={"./placeholder-image.png"}
           layout="responsive"
           width={800}
           height={600}
